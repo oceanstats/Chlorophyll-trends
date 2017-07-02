@@ -50,29 +50,7 @@ if(j %in% c(1,2,4,6,7,8,10,11,12,13,17,18,19,22,25,26,27,29,30,31,34,35,36,40,43
   
   savename <- paste0("~/Ch1-scripts/No_space/",j,"_BGC_model.Rdata")
   load(savename)
-for(p in 1:length(model_input$Longitude))
-  {
-if(model_input$Longitude[p]>179.5){model_input$Longitude[p] <- model_input$Longitude[p]-360}# removing original correction for having longitudes increasing continuously
-}
-  #locations same for all time steps--> work out locations for plugging into fittedChl
-  loc <- model_input[which(model_input$TT==1),2:3] 
-  locind <- array(NA,dim=c(nrow(loc),2))
-  for(m in 1:nrow(loc))
-{
-  locind[m,1] <- which(lons<loc[m,1]+0.01 & lons>loc[m,1]-0.01)
-  locind[m,2] <- which(lats<loc[m,2]+0.01 & lats>loc[m,2]-0.01)
-}
-  for(k in 1:196)
-{
-fittemp <- exp(fitted[which(model_input$TT==k),1])
-fittemp2 <-fitted[which(model_input$TT==k),2]
-
-for(m in 1:length(fittemp))
-{
-fittedChl[locind[m,1],locind[m,2],k] <- fittemp[m]
-fittedChl_sd[locind[m,1],locind[m,2],k] <- fittemp2[m]
-}
-}
+fittedChl <- aperm(array(exp(fitted),dim=c(196,360,180)),c(2,3,1))
   
 
 total_betap[,,j] <- betap
