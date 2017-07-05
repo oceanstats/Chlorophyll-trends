@@ -1,6 +1,4 @@
-library(ncdf)
 library(nlme)
-library(fields)
 library(spTimer)
 library(R.matlab)
 library(sp)
