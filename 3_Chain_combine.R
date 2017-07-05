@@ -1,6 +1,5 @@
 
 library(spTimer)
-library(fields)
 library(R.matlab)
 
 rm(list=ls())
