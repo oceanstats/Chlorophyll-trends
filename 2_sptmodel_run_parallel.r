@@ -135,7 +135,14 @@ Model<- spT.Gibbs(
  
  registerDoParallel(cores=8)
 
- #run
+#run burn-in
+foreach(j=area,.packages="spTimer")  %dopar% #running burn in 
+{
+  dothisburn(j)
+}
+
+
+ #run subsequent iterations
  foreach(i=part,.packages="spTimer")  %:% 
 foreach(j=area,.packages="spTimer")  %dopar% 
 
